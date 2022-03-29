@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "type": "module",
+  "author": "Keisuke Shimotori <k.shimotori0906@gmail.com>",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
