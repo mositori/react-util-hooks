@@ -1,6 +1,6 @@
 # react-util-hooks
 
-A Collection of utilify React hooks ✨
+A Collection of utility React hooks ✨
 
 ## List of React hooks
 
