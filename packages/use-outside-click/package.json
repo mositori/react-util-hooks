@@ -1,6 +1,6 @@
 {
   "name": "@frosted_bird/use-outside-click",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple React hook for handling outside click event.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
