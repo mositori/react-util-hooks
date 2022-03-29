@@ -1,35 +1,61 @@
-import { useRef, useCallback, useEffect } from 'react';
+import { useEffect, RefObject } from "react";
 
 export type OutsideClickConfig = {
-  callback: () => void;
-  enable?: boolean;
-  capture?: boolean;
+  enabled?: boolean;
+  onClickDown: (e: Event) => void;
+  onClickUp: (e: Event) => void;
+  excludes: RefObject<HTMLElement>[];
 };
 
-export default function useOnOutsideClick<T extends HTMLElement>({
-  callback,
-  enable = true,
-  capture = false,
+export function useOutsideClick({
+  enabled = true,
+  excludes,
+  onClickDown,
+  onClickUp,
 }: OutsideClickConfig) {
-  const ref = useRef<T>(null);
-  const handler = useCallback(
-    (e: MouseEvent) => {
-      // if ref is not provided, then fire callback whenever window is clicked.
-      // if provided, then always check if the clicked element is a descendant.
-      if (!ref.current || !ref.current?.contains(e.target as Node)) {
-        callback();
-      }
-    },
-    [callback]
-  );
-
   useEffect(() => {
-    if (enable) document.addEventListener('click', handler, capture);
+    const handleClickUp = (event: Event) => {
+      if (!enabled) {
+        return;
+      }
+
+      if (
+        excludes.some(
+          (ref) =>
+            ref.current && ref.current.contains(event.target as HTMLElement)
+        )
+      ) {
+        return;
+      }
+      onClickUp(event);
+    };
+    const handleClickDown = (event: Event) => {
+      if (!enabled) {
+        return;
+      }
+
+      if (
+        excludes.some(
+          (ref) =>
+            ref.current && ref.current.contains(event.target as HTMLElement)
+        )
+      ) {
+        return;
+      }
+
+      onClickDown(event);
+    };
+
+    document.addEventListener("mouseup", handleClickUp);
+    document.addEventListener("touchend", handleClickUp);
+    document.addEventListener("mousedown", handleClickDown);
+    document.addEventListener("touchstart", handleClickDown);
 
     return () => {
-      if (enable) document.removeEventListener('click', handler, capture);
+      document.removeEventListener("mouseup", handleClickUp);
+      document.removeEventListener("touchend", handleClickUp);
+      document.removeEventListener("mousedown", handleClickDown);
+      document.removeEventListener("touchstart", handleClickDown);
     };
-  }, [handler, enable]);
-
-  return [ref] as const;
+  }, [enabled, excludes, onClickDown, onClickUp]);
 }
