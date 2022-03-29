@@ -1,0 +1,16 @@
+{
+  "name": "react-util-hooks",
+  "version": "0.0.0",
+  "description": "Collection of my utility custom hooks",
+  "main": "index.js",
+  "repository": "git@github.com:mositori/react-util-hooks.git",
+  "author": "mositori <destrage1958@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "typescript": "^4.6.3"
+  }
+}

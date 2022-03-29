@@ -1,0 +1,19 @@
+{
+  "name": "@frosted_bird/use-boolean",
+  "version": "1.0.0",
+  "description": "React hook specialized for managing boolean value",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "type": "module",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.43",
+    "react": "^17.0.2"
+  }
+}
